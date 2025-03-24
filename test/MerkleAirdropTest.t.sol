@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT 
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
 import {Test, console} from "forge-std/Test.sol";
@@ -25,6 +25,7 @@ contract MerkleAirdropTest is Test {
         token.transfer(address(airdrop), AMOUNT_TO_SEND);
         (user, userPrivKey) = makeAddrAndKey("user");
     }
+
     function testUsersCanClaim() public {
         uint256 startingBalance = token.balanceOf(user);
         vm.deal(user, 1 ether);
