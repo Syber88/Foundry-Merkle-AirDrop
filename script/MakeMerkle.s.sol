@@ -7,7 +7,7 @@ import {console} from "forge-std/console.sol";
 import {Merkle} from "murky/src/Merkle.sol";
 import {ScriptHelper} from "murky/script/common/ScriptHelper.sol";
 
-// Merkle proof generator script
+// Merkle proof generator scriptd
 // To use:
 // 1. Run `forge script script/GenerateInput.s.sol` to generate the input file
 // 2. Run `forge script script/Merkle.s.sol`
