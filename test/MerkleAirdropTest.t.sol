@@ -39,7 +39,6 @@ contract MerkleAirdropTest is ZkSyncChainChecker, Test {
         uint256 startingBalance = token.balanceOf(user);
         bytes32 digest = airdrop.getMessageHash(user, AMOUNT_TO_CLAIM);
         vm.deal(user, 1 ether);
-        vm.prank(user);
         (uint8 v, bytes32 r, bytes32 s) = vm.sign(userPrivKey, digest);
 
         vm.prank(gasPayer);
