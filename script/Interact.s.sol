@@ -18,9 +18,7 @@ contract ClaimAirdrop is Script {
         vm.stopBroadcast();
     }
 
-
     function run() external {
         address mostRecentDeployed = DevOpsTools.get_most_recent_deployment("MerkleAirdrop", block.chainid);
-
     }
 }
