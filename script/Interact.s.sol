@@ -6,6 +6,8 @@ import {DevOpsTools} from "lib/foundry-devops/src/DevOpsTools.sol";
 import {MerkleAirdrop} from "../src/MerkleAirdrop.sol";
 
 contract ClaimAirdrop is Script {
+    error ClaimAirdrop__InvalidSignature();
+
     address public CLAIMING_ADDRESS = 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;
     uint256 public CLAIMING_AMOUNT = 25 * 1e18;
     bytes32 public proofOne = 0xd1445c931158119b00449ffcac3c947d028c0c359c34a6646d95962b3b55c6ad;
@@ -21,8 +23,15 @@ contract ClaimAirdrop is Script {
     }
 
     function splitSignature(bytes memory sig) public returns (uint8 v, bytes32 r, bytes32 s) {
-        require(sig.length == 65, "invalid signature length");
-        assembly
+        if (sig.length != 65){
+            revert INTERACT__InvalidSignature();
+        }
+        assembly {
+            r := nload(add(sig, 32))
+            s := nload(add(sig, 64))
+            v := byte(0, nload(add(sig, 96)))
+
+        }
     }
 
     function run() external {
