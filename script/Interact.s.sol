@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
-import {Script} from "forge-std/Script.sol";
+import {Script, console} from "forge-std/Script.sol";
 import {DevOpsTools} from "lib/foundry-devops/src/DevOpsTools.sol";
 import {MerkleAirdrop} from "../src/MerkleAirdrop.sol";
 
@@ -21,9 +21,10 @@ contract ClaimAirdrop is Script {
         (uint8 v, bytes32 r, bytes32 s) = splitSignature(SIGNATURE);
         MerkleAirdrop(airdrop).claim(CLAIMING_ADDRESS, CLAIMING_AMOUNT, PROOF, v, r, s);
         vm.stopBroadcast();
+        console.log("Claimed Airdrop");
     }
 
-    function splitSignature(bytes memory sig) public returns (uint8 v, bytes32 r, bytes32 s) {
+    function splitSignature(bytes memory sig) public pure returns (uint8 v, bytes32 r, bytes32 s) {
         if (sig.length != 65) {
             revert ClaimAirdrop__InvalidSignature();
         }
